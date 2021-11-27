@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements.txt
       - name: Run Tests
         run: |
-          python3 manage.py test
+          python3 manage.py runserver
       - name: Install vercel
         run: pip install vercel
       - name: Deploy
