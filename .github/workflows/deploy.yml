@@ -1,4 +1,4 @@
-name: Django Deploy To Vercel
+name: Django Test and Deploy to Vercel
 
 on:
   push:
