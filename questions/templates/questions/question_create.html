@@ -1,0 +1,26 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+  <div class="card mb-5">
+    <div class="card-header">Create new question</div>
+    <div class="card-body">
+      <form class="form-question-create" action="{% url 'question_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Create">
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- <div class="card">
+    <div class="card-header">Comments</div>
+    <div class="card-body">
+      <div class="form-group green-border-focus">
+        <textarea class="form-control" rows="3" placeholder="Write your answer..."></textarea>
+        <button class="btn btn-primary mt-2 float-end" type="button">Comment</button>
+      </div>
+    </div>
+  </div> -->
+{% endblock %}

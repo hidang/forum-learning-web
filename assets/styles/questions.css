@@ -1,0 +1,39 @@
+.form-question-create input,
+.form-question-create textarea {
+  display: block;
+  margin: 20px 0 0 0;
+  padding: 10px;
+  width: 100%;
+}
+.form-question-create textarea {
+  max-height: 100px;
+}
+.form-question-create input[value="Create"] {
+  max-width: 150px;
+  float: right;
+  background-color: aquamarine;
+  color: #333300;
+}
+#id_thumbnail {
+  padding-bottom: 40px;
+}
+
+.questions_list {
+}
+
+.question_item {
+  border-radius: 4px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+  background-color: white;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+.question_item_card > div > a > img {
+  transition: 0.9s;
+  transform: scale(1);
+}
+
+.question_item_card:hover > div > a > img {
+  transform: scale(1.1);
+}

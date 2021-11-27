@@ -1,0 +1,26 @@
+@import url("/static/styles/questions.css");
+@import url("/static/styles/accounts.css");
+@import url("/static/styles/homepage.css");
+
+body {
+  background-color: white;
+}
+a {
+  color: #00ab6b;
+}
+a,
+a:hover {
+  transition: all 0.2s;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+  padding-top: 15px;
+  padding-bottom: 12px;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.44);
+  margin-top: 50px;
+  padding: 20px 40px;
+}

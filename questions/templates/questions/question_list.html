@@ -1,0 +1,133 @@
+{% extends 'base_layout.html' %} {% block content %}
+
+<!-- Begin Site Title
+  ================================================== -->
+<div class="container">
+  <div class="mainheading text-center">
+    <h1 class="sitetitle">~ Forum Learning ~</h1>
+    <p class="lead">Share and Learn in the simplest way</p>
+  </div>
+  <!-- End Site Title
+  ================================================== -->
+
+  <!-- Begin Search Question
+  ================================================== -->
+  <form class="row mb-4 d-flex justify-content-center">
+    <div class="col-9">
+      <textarea name="q" class="form-control" rows="2" placeholder="Search question..."></textarea>
+    </div>
+    <div class="col-2 d-grid">
+      <button class="btn btn-outline-success btn-lg" type="submit">
+        Search
+      </button>
+    </div>
+  </form>
+  <!-- End Search Question
+================================================== -->
+
+  <!-- Begin Featured
+	================================================== -->
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="list-group mt-3">
+        <li class="list-group-item active">
+          <div class="d-flex justify-content-between">
+            <span>Chủ đề</span>
+            {% if tag_name != '' %}
+            <span class="badge bg-warning d-flex align-items-center">
+              <a class="text-decoration-none" href="{% url 'question_list'%}">Bỏ chọn</a>
+            </span>
+            {% endif %}
+          </div>
+        </li>
+        <li class="list-group-item">
+          <a class="page-link" href="{% url 'question_tag' tag_name='new' %}" aria-label="Previous">
+            <span class="sr-only">Item</span>
+          </a>
+          <a class="page-link" href="{% url 'question_list'%}" aria-label="Previous">
+            <span class="sr-only">Item2</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9 featured-posts">
+      <div class="section-title">
+        <h2><span>New Questions</span></h2>
+      </div>
+      <div class="card-columns">
+        <div class="row">
+          {% for question in page.object_list %}
+          <!-- begin post -->
+          <div class="col-lg-6 mb-4 question_item_card">
+            <div class="card h-100">
+              {% if question.thumbnail %}
+              <a href="{% url 'question_detail' question_id=question.id %}" class="d-flex justify-content-center p-3">
+                <img class="card-img-top" style="width: 250px; height: 100%" src="{{ question.thumbnail.url }}"
+                  alt="" />
+              </a>
+              {% endif %}
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{% url 'question_detail' question_id=question.id %}">{{ question.title }}</a>
+                </h4>
+                <p class="card-text">{{ question.snippetContent }}</p>
+                <p>{{ question.date }}</p>
+              </div>
+            </div>
+          </div>
+          <!-- end post -->
+          {% endfor %}
+        </div>
+      </div>
+
+      <ul class="pagination justify-content-center">
+        {% if page.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="{% url 'question_list' %}?page={{ page.previous_page_number }}"
+            aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if page_range.stop > 2 %}
+        {% for page_num in page_range %}
+        <li class="page-item {% if page.number == page_num %} active {% endif %}">
+          <a class="page-link" href="{% url 'question_list' %}?page={{ page_num }}">{{ page_num }}
+          </a>
+        </li>
+        {% endfor %}
+        {% endif %}
+
+        {% if page.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="{% url 'question_list' %}?page={{ page.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- End Featured
+  	================================================== -->
+
+  <h4 class="mt-3 mb-3">Top 10 Questions</h4>
+  <div class="questions_list mb-5">
+    {% for question in page.object_list %}
+    <div class="question_item">
+      <h4>
+        <a href="{% url 'question_detail' question_id=question.id %}">{{ question.title }}</a>
+      </h4>
+      <p>{{ question.snippetContent }}</p>
+      <p>{{ question.date }}</p>
+    </div>
+
+    {% endfor %}
+  </div>
+
+  {% endblock %}
+</div>
