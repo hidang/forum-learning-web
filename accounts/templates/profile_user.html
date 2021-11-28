@@ -1,0 +1,26 @@
+{% extends 'base_layout.html' %} {% block content %}
+<div class="row">
+  <div class="content-section col-lg-4">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" />
+      <div class="media-body">
+        <h2 class="account-heading">{{ user.username }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    {% for question in questions %}
+    <div class="question_item">
+      <h4>
+        <a href="{% url 'question_detail' question_id=question.id %}">{{ question.title }}</a>
+      </h4>
+      <p>{{ question.snippetContent }}</p>
+      <p>{{ question.date }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

@@ -13,11 +13,11 @@
   <!-- Begin Search Question
   ================================================== -->
   <form class="row mb-4 d-flex justify-content-center">
-    <div class="col-9">
+    <div class="col-md-9 mt-2">
       <textarea name="q" class="form-control" rows="2" placeholder="Search question..."></textarea>
     </div>
-    <div class="col-2 d-grid">
-      <button class="btn btn-outline-success btn-lg" type="submit">
+    <div class="col-md-2 d-grid mt-2">
+      <button class="btn btn-success btn-lg" type="submit">
         Search
       </button>
     </div>
@@ -28,7 +28,7 @@
   <!-- Begin Featured
 	================================================== -->
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 mb-3">
       <ul class="list-group mt-3">
         <li class="list-group-item active">
           <div class="d-flex justify-content-between">
@@ -41,18 +41,35 @@
           </div>
         </li>
         <li class="list-group-item">
-          <a class="page-link" href="{% url 'question_tag' tag_name='new' %}" aria-label="Previous">
-            <span class="sr-only">Item</span>
+          <a class="page-link" href="{% url 'question_tag' tag_name='khoahoc' %}" aria-label="Previous">
+            <span class="sr-only">Khoa học</span>
           </a>
-          <a class="page-link" href="{% url 'question_list'%}" aria-label="Previous">
-            <span class="sr-only">Item2</span>
+          <a class="page-link" href="{% url 'question_tag' tag_name='lichsu' %}" aria-label="Previous">
+            <span class="sr-only">Lịch sử</span>
+          </a>
+          <a class="page-link" href="{% url 'question_tag' tag_name='thegioi' %}" aria-label="Previous">
+            <span class="sr-only">Thế giới</span>
+          </a>
+          <a class="page-link" href="{% url 'question_tag' tag_name='toanhoc' %}" aria-label="Previous">
+            <span class="sr-only">Toán học</span>
+          </a>
+          <a class="page-link" href="{% url 'question_tag' tag_name='random' %}" aria-label="Previous">
+            <span class="sr-only">Random</span>
           </a>
         </li>
       </ul>
     </div>
     <div class="col-md-9 featured-posts">
       <div class="section-title">
-        <h2><span>New Questions</span></h2>
+        <h2>
+          <span>
+            {% if tag_name %}
+            #{{ tag_name }}
+            {% else %}
+            New Questions
+            {% endif %}
+          </span>
+        </h2>
       </div>
       <div class="card-columns">
         <div class="row">
@@ -117,17 +134,15 @@
 
   <h4 class="mt-3 mb-3">Top 10 Questions</h4>
   <div class="questions_list mb-5">
-    {% for question in page.object_list %}
+    {% for question in question_top_10 %}
     <div class="question_item">
       <h4>
         <a href="{% url 'question_detail' question_id=question.id %}">{{ question.title }}</a>
       </h4>
       <p>{{ question.snippetContent }}</p>
-      <p>{{ question.date }}</p>
     </div>
-
     {% endfor %}
   </div>
 
-  {% endblock %}
 </div>
+{% endblock %}

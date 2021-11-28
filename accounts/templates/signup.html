@@ -1,10 +1,13 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-  <h1>Đăng ký</h1>
+<h1 class="text-center">Đăng ký</h1>
+<div class="container d-flex justify-content-center">
+
   <form method="POST" action="/accounts/signup/" class="form-signup">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="OK">
+    <input type="submit" value="Signup" class="btn btn-primary">
   </form>
+</div>
 {% endblock %}

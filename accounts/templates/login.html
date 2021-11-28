@@ -1,36 +1,38 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-  <div class="container-fluid px-5 my-5">
-    <div class="row justify-content-center">
-      <div class="col-xl-10">
-        <div class="card border-0 rounded-3 shadow-lg overflow-hidden">
-          <div class="card-body p-0">
-            <div class="row g-0">
-              <div class="col-sm-6 d-none d-sm-block bg-image"></div>
-              <div class="col-sm-6 p-4">
-                <div class="text-center">
-                  <div class="h3 fw-light">Login</div>
-                  <p class="mb-4 text-muted">Learn and Share</p>
-                </div>
-                <form method="POST" action="/accounts/login/" id="contactForm" class="form-login">
-                  {% csrf_token %}
-                  {{ form }}
-                  {% if request.GET.next %}
-                    <input type="hidden" name="next" value="{{ request.GET.next }}">
-                  {% endif %}
-                  <input type="submit" value="Login">
-                </form>
-                <!-- End of login -->
-
-              </div>
+<div class="container-fluid px-5 my-5 p-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-10">
+      <div class="card border-0 rounded-3 shadow-lg overflow-hidden">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-xl-6 d-none d-xl-block bg-image">
+              <img src="/static/images/hero-img.png" />
             </div>
+            <div class="col-xl-6 p-5 ml-4">
+              <div class="text-center">
+                <div class="h3 fw-light">Login</div>
+                <p class="mb-4 text-muted">Learn and Share</p>
+              </div>
+              <form method="POST" action="/accounts/login/" id="contactForm" class="form-login">
+                {% csrf_token %}
+                {{ form }}
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+                <input type="submit" value="Login" class="btn btn-primary">
+              </form>
+              <!-- End of login -->
 
+            </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
 {% endblock %}

@@ -1,6 +1,9 @@
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from accounts.models import Profile
+from questions.models import Question
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,6 +17,10 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            user = User.objects.get(username=username)
+            # sau khi tạo user, tạo thêm profile mặc định cho user
+            b = Profile(user=user)
+            b.save()
             messages.success(
                 request, f'Your account has been created! You are now able to log in')
             return redirect('accounts:accounts_login')
@@ -44,7 +51,8 @@ def logout_view(request):
 
 
 @login_required
-def profile(request):
+def profile_me(request):
+    questions = []
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -54,15 +62,29 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('accounts:accounts_profile')
+            return redirect('accounts:accounts_profile_me')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
+        questions = request.user.question_set.all()
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'questions': questions
     }
 
-    return render(request, 'profile.html', context)
+    return render(request, 'profile_me.html', context)
+
+
+def profile_user(request, username):
+    user = User.objects.get(username=username)
+    questions = user.question_set.all()
+
+    context = {
+        'user': user,
+        'questions': questions
+    }
+
+    return render(request, 'profile_user.html', context)
